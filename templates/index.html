@@ -3,43 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foo Airline Sentiment Analysis</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Airline Sentiment Analysis</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: linear-gradient(to right, #0f2027, #203a43, #2c5364); color: white; text-align: center; overflow-x: hidden; }
+        header { padding: 20px; font-size: 28px; font-weight: bold; background: rgba(255, 255, 255, 0.1); box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2); }
+        .container { max-width: 900px; margin: 50px auto; padding: 20px; background: rgba(255, 255, 255, 0.1); border-radius: 12px; box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); }
+        .container h2 { margin-bottom: 20px; font-size: 24px; }
+        .input-box { margin: 20px 0; }
+        input { width: 80%; padding: 12px; font-size: 16px; border: none; border-radius: 6px; outline: none; text-align: center; }
+        button { background: #ff9800; color: white; padding: 12px 20px; font-size: 18px; border: none; border-radius: 6px; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #ff5722; }
+        .result { margin-top: 20px; font-size: 20px; font-weight: bold; }
+
+        /* Animated Airplane */
+        .plane {
+            position: absolute;
+            top: 20%;
+            left: -100px;
+            width: 100px;
+            animation: fly 8s linear infinite;
+        }
+
+        @keyframes fly {
+            0% { left: -100px; top: 20%; transform: rotate(5deg); }
+            50% { left: 50%; top: 10%; transform: rotate(0deg); }
+            100% { left: 110%; top: 20%; transform: rotate(-5deg); }
+        }
+
+        .footer { margin-top: 30px; padding: 10px; background: rgba(255, 255, 255, 0.1); font-size: 14px; }
+    </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">Foo Airlines</div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <h1>Welcome to Foo Airlines</h1>
-            <p>Experience the future of air travel with our advanced sentiment analysis tool.</p>
-            <a href="#analysis" class="cta">Analyze Sentiment</a>
+    <header>✈ Airline Sentiment Analysis ✈</header>
+
+    <div class="container">
+        <h2>Enter Your Airline Experience</h2>
+        <div class="input-box">
+            <input type="text" id="userInput" placeholder="Describe your airline experience..." />
         </div>
-    </section>
+        <button onclick="redirectToPredict()">Analyze Sentiment</button>
+        <div class="result" id="result"></div>
+    </div>
 
-    <section class="analysis" id="analysis">
-        <h2>Sentiment Analysis</h2>
-        <p>Enter your text below to analyze the sentiment:</p>
-        <textarea id="sentimentInput" placeholder="Enter your text here..."></textarea>
-        <button id="analyzeBtn">Analyze</button>
-        <div id="result"></div>
-    </section>
+    <!-- Animated Airplane -->
+    <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Airplane_silhouette.svg" class="plane" />
 
-    <footer>
-        <p>&copy; 2023 Foo Airlines. All rights reserved.</p>
-    </footer>
+    <div class="footer">© 2025 Airline Sentiment Analyzer</div>
 
-    <script src="script.js"></script>
+    <script>
+        function redirectToPredict() {
+            const input = document.getElementById("userInput").value;
+            if (!input.trim()) {
+                alert("Please enter your experience before analyzing.");
+                return;
+            }
+
+            // Change the URL to /predict
+            window.history.pushState({}, "", "/predict");
+
+            // Send a request to Flask backend
+            fetch('/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text: input })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("result").innerHTML = data.sentiment;
+                document.getElementById("result").style.color = data.color;
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+
 </body>
 </html>
