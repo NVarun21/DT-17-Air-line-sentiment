@@ -1,28 +1,15 @@
-from flask import Flask, render_template, request, jsonify
-
-app = Flask(__name__)
-
-@app.route('/')
+from flask import Flask,render_template,request
+app=Flask(__name__)
+@app.route("/")
 def home():
     return render_template("index.html")
-
-@app.route('/predict', methods=['GET', 'POST'])
+@app.route("/predict",methods=["GET","POST"])
 def predict():
-    if request.method == 'POST':
-        data = request.json
-        text = data.get("text", "").lower()
+    if request.method=="POST":
+        msg=request.form.get("message")
+        print(msg)
+    else:
+        return render_template("predict.html")
 
-        if any(word in text for word in ["happy", "great", "good", "excellent"]):
-            sentiment = {"sentiment": "😊 Positive Sentiment!", "color": "lightgreen"}
-        elif any(word in text for word in ["bad", "worst", "poor", "terrible"]):
-            sentiment = {"sentiment": "😡 Negative Sentiment!", "color": "red"}
-        else:
-            sentiment = {"sentiment": "😐 Neutral Sentiment!", "color": "yellow"}
-
-        return jsonify(sentiment)
-
-    return render_template("predict.html")  # Render a new page if accessed via GET
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
+if __name__=="__main__":
+    app.run(host="0.0.0.0",port=5151)
