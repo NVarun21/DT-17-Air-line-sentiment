@@ -22,24 +22,27 @@
         .container {
             text-align: center;
             color: white;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(255, 255, 255, 0.3); /* Semi-transparent white */
             border-radius: 10px;
-            padding: 30px 50px;
+            padding: 15px 30px; /* Reduced vertical padding */
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
-            width: 70%;
-            max-width: 500px;
+            width: 90%; /* Increased width */
+            max-width: 600px; /* Increased max-width */
+            backdrop-filter: blur(10px); /* Adds a blur effect */
         }
 
         h1 {
             font-size: 2.2em;
             margin-bottom: 15px;
             animation: fadeIn 2s ease-in-out;
+            color: #333; /* Dark text for better contrast */
         }
 
         p {
             font-size: 1.1em;
             margin-bottom: 20px;
             animation: fadeIn 3s ease-in-out;
+            color: #555; /* Darker text for better contrast */
         }
 
         textarea {
@@ -50,15 +53,16 @@
             margin-bottom: 15px;
             border-radius: 8px;
             border: 1px solid #ddd;
-            background-color: #f9f9f9;
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
             resize: none;
             box-sizing: border-box;
+            color: #333; /* Dark text for better contrast */
         }
 
         button {
             padding: 12px 25px;
             font-size: 1.1em;
-            background-color: #e74c3c;
+            background-color: #3498db; /* Light blue */
             color: white;
             border: none;
             border-radius: 5px;
@@ -68,7 +72,7 @@
         }
 
         button:hover {
-            background-color: #c0392b;
+            background-color: #2980b9; /* Darker blue on hover */
         }
 
         @keyframes fadeIn {
