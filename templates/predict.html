@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Predict Sentiment</title>
     <style>
-        /* General reset */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #1a1a1a; /* Dark background */
-            color: #ffd700; /* Gold text */
+            background-color: #1a1a1a;
+            color: #ffd700;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -18,7 +17,7 @@
         }
 
         .container {
-            background-color: #2c2c2c; /* Slightly lighter dark background */
+            background-color: #2c2c2c;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
@@ -68,16 +67,47 @@
         button:hover {
             background-color: #e6be00;
         }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffd700;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Predict Sentiment</h1>
-        <form action="/predict" method="POST">
+        <form id="sentimentForm">
             <label for="message">Enter your message:</label>
             <textarea id="message" name="message" placeholder="I am feeling happy today" required></textarea>
             <button type="submit">Know Sentiment</button>
         </form>
+        <p id="result"></p>
     </div>
+
+    <script>
+        document.getElementById("sentimentForm").addEventListener("submit", function(event) {
+            event.preventDefault();  // Prevent form submission
+            var message = document.getElementById("message").value;
+
+            fetch("/predict", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: "message=" + encodeURIComponent(message)
+            })
+            .then(response => response.json())
+            .then(data => {
+                let sentimentText = data.result == "1" ? "Positive 😊" : "Negative 😡";
+                document.getElementById("result").innerHTML = "Sentiment: " + sentimentText;
+            })
+            .catch(error => {
+                document.getElementById("result").innerHTML = "Error in prediction!";
+            });
+        });
+    </script>
 </body>
 </html>
