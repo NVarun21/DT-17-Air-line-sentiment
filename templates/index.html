@@ -9,10 +9,8 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-1.2.1&auto=format&fit=crop&w=1353&q=80') no-repeat center center fixed;
             background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
             height: 100vh;
             display: flex;
             justify-content: center;
@@ -22,47 +20,43 @@
         .container {
             text-align: center;
             color: white;
-            background: rgba(255, 255, 255, 0.3); /* Semi-transparent white */
+            background: rgba(0, 0, 0, 0.6);
             border-radius: 10px;
-            padding: 15px 30px; /* Reduced vertical padding */
+            padding: 15px 20px; /* Reduced padding */
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
-            width: 90%; /* Increased width */
+            width: 80%; /* Increased width */
             max-width: 600px; /* Increased max-width */
-            backdrop-filter: blur(10px); /* Adds a blur effect */
         }
 
         h1 {
-            font-size: 2.2em;
-            margin-bottom: 15px;
+            font-size: 2em; /* Reduced font size */
+            margin-bottom: 10px; /* Reduced margin */
             animation: fadeIn 2s ease-in-out;
-            color: #333; /* Dark text for better contrast */
         }
 
         p {
-            font-size: 1.1em;
-            margin-bottom: 20px;
+            font-size: 1em; /* Reduced font size */
+            margin-bottom: 15px; /* Reduced margin */
             animation: fadeIn 3s ease-in-out;
-            color: #555; /* Darker text for better contrast */
         }
 
         textarea {
             width: 100%;
-            height: 120px;
-            padding: 10px;
-            font-size: 1em;
-            margin-bottom: 15px;
+            height: 80px; /* Further reduced height */
+            padding: 8px; /* Reduced padding */
+            font-size: 0.9em; /* Reduced font size */
+            margin-bottom: 10px; /* Reduced margin */
             border-radius: 8px;
             border: 1px solid #ddd;
-            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+            background-color: #f9f9f9;
             resize: none;
             box-sizing: border-box;
-            color: #333; /* Dark text for better contrast */
         }
 
         button {
-            padding: 12px 25px;
-            font-size: 1.1em;
-            background-color: #3498db; /* Light blue */
+            padding: 10px 20px; /* Reduced padding */
+            font-size: 1em; /* Reduced font size */
+            background-color: #87CEEB; /* Sky blue */
             color: white;
             border: none;
             border-radius: 5px;
@@ -72,7 +66,7 @@
         }
 
         button:hover {
-            background-color: #2980b9; /* Darker blue on hover */
+            background-color: #6CA6CD; /* Darker shade of sky blue for hover */
         }
 
         @keyframes fadeIn {
@@ -89,7 +83,7 @@
         .footer {
             position: fixed;
             bottom: 10px;
-            font-size: 0.9em;
+            font-size: 0.8em; /* Reduced font size */
             color: white;
             opacity: 0.7;
         }
@@ -99,22 +93,19 @@
 
 <div class="container">
     <h1>Airline Sentiment Analysis</h1>
-    <p>Analyze customer feedback to understand the sentiment towards airlines.</p>
-    <textarea placeholder="Enter your review here..."></textarea>
-    <br>
-    <button onclick="navigateToPredict()">Predict Sentiment</button>
+    <p>Analyze customer feedback to understand airline sentiment.</p> <!-- One-line description -->
+    
+    <!-- Use a form to submit data -->
+    <form action="/predict" method="POST">
+        <textarea name="message" placeholder="Enter your review here..." required></textarea>
+        <br>
+        <button type="submit">Predict Sentiment</button>
+    </form>
 </div>
 
 <div class="footer">
     <p>&copy; 2025 Airline Sentiment Analysis. All Rights Reserved.</p>
 </div>
-
-<script>
-    function navigateToPredict() {
-        // Navigate to the new URL '/predict'
-        window.location.href = "/predict";
-    }
-</script>
 
 </body>
 </html>
