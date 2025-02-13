@@ -1,10 +1,11 @@
 import re
 import nltk
 from nltk.tokenize import word_tokenize
-nltk.download("punkt")
 from nltk.corpus import stopwords
-nltk.download('stopwords')
 from nltk.stem import PorterStemmer
+
+nltk.download("punkt")
+nltk.download('stopwords')
 
 class TextToNum:
     def __init__(self, text):
