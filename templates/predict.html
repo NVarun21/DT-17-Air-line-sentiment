@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Predict Sentiment</title>
+    <title>Sentiment Result</title>
     <style>
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #1a1a1a;
-            color: #ffd700;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(120deg, #ff9a9e, #fad0c4);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -17,97 +16,104 @@
         }
 
         .container {
-            background-color: #2c2c2c;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
-            width: 400px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             text-align: center;
+            width: 90%;
+            max-width: 450px;
+            color: white;
         }
 
         h1 {
-            margin-bottom: 20px;
-            font-size: 24px;
-        }
-
-        label {
-            font-size: 16px;
-            display: block;
-            margin-bottom: 10px;
+            font-size: 2em;
+            margin-bottom: 15px;
         }
 
         textarea {
             width: 100%;
             height: 100px;
-            background-color: #1a1a1a;
-            color: #ffd700;
-            border: 2px solid #ffd700;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
             border-radius: 5px;
             padding: 10px;
-            font-size: 14px;
-        }
-
-        textarea:focus {
+            font-size: 1em;
+            resize: none;
             outline: none;
-            box-shadow: 0 0 10px #ffd700;
         }
 
         button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #1a1a1a;
-            background-color: #ffd700;
+            margin-top: 15px;
+            padding: 12px 25px;
+            font-size: 1.2em;
+            color: white;
+            background: #ff4b2b;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-weight: bold;
+            transition: 0.3s;
         }
 
         button:hover {
-            background-color: #e6be00;
+            background: #ff416c;
+            transform: scale(1.05);
+        }
+
+        /* Sentiment Animation */
+        .emoji {
+            font-size: 50px;
+            animation: bounce 1s infinite alternate;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-10px); }
         }
 
         #result {
             margin-top: 20px;
-            font-size: 18px;
+            font-size: 22px;
             font-weight: bold;
-            color: #ffd700;
         }
     </style>
 </head>
 <body>
+
     <div class="container">
-        <h1>Predict Sentiment</h1>
+        <h1>Sentiment Prediction</h1>
         <form id="sentimentForm">
-            <label for="message">Enter your message:</label>
-            <textarea id="message" name="message" placeholder="I am feeling happy today" required></textarea>
-            <button type="submit">Know Sentiment</button>
+            <textarea id="message" name="message" placeholder="Type here..." required></textarea>
+            <button type="submit">Predict</button>
         </form>
         <p id="result"></p>
+        <div id="emoji" class="emoji"></div>
     </div>
 
     <script>
         document.getElementById("sentimentForm").addEventListener("submit", function(event) {
-            event.preventDefault();  // Prevent form submission
+            event.preventDefault();
             var message = document.getElementById("message").value;
 
             fetch("/predict", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
                 body: "message=" + encodeURIComponent(message)
             })
             .then(response => response.json())
             .then(data => {
                 let sentimentText = data.result == "1" ? "Positive 😊" : "Negative 😡";
+                let emoji = data.result == "1" ? "😊" : "😡";
                 document.getElementById("result").innerHTML = "Sentiment: " + sentimentText;
+                document.getElementById("emoji").innerHTML = emoji;
             })
             .catch(error => {
                 document.getElementById("result").innerHTML = "Error in prediction!";
             });
         });
     </script>
+
 </body>
 </html>

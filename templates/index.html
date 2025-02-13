@@ -5,38 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Airline Sentiment Analysis</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(to right, #3498db, #2ecc71);
+            overflow: hidden;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
+        }
+
+        /* Airplane Animation */
+        .airplane {
+            position: absolute;
+            top: 20%;
+            left: -100px;
+            width: 150px;
+            animation: fly 5s linear infinite;
+        }
+
+        @keyframes fly {
+            from { left: -150px; }
+            to { left: 110%; }
+        }
+
+        /* Air Hostess */
+        .air-hostess {
+            position: absolute;
+            bottom: 10%;
+            left: 5%;
+            width: 200px;
         }
 
         .container {
             text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 500px;
             color: white;
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 10px;
-            padding: 40px 60px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
-            width: 80%;
-            max-width: 600px;
         }
 
         h1 {
             font-size: 2.5em;
-            margin-bottom: 20px;
-            animation: fadeIn 2s ease-in-out;
-        }
-
-        p {
-            font-size: 1.2em;
-            margin-bottom: 30px;
-            animation: fadeIn 3s ease-in-out;
+            margin-bottom: 15px;
         }
 
         textarea {
@@ -46,64 +66,46 @@
             font-size: 1.1em;
             margin-bottom: 20px;
             border-radius: 8px;
-            border: 1px solid #ddd;
-            background-color: #f9f9f9;
+            border: none;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
             resize: none;
-            box-sizing: border-box;
+            outline: none;
         }
 
         button {
             padding: 15px 30px;
             font-size: 1.2em;
-            background-color: #e74c3c;
+            background: #ff416c;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: 0.3s;
         }
 
         button:hover {
-            background-color: #c0392b;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .footer {
-            position: fixed;
-            bottom: 10px;
-            font-size: 0.9em;
-            color: white;
-            opacity: 0.7;
+            background: #ff4b2b;
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
 
+<!-- Airplane Animation -->
+<img src="https://cdn-icons-png.flaticon.com/512/2222/2222334.png" class="airplane" alt="Airplane">
+
+<!-- Air Hostess -->
+<img src="https://cdn-icons-png.flaticon.com/512/2830/2830156.png" class="air-hostess" alt="Air Hostess">
+
 <div class="container">
-    <h1>Airline Sentiment Analysis</h1>
-    <p>Analyze customer feedback to understand the sentiment towards airlines.</p>
-    
-    <!-- Use a form to submit data -->
+    <h1>Welcome to Airline Sentiment Analysis ✈️</h1>
+    <p>Type your review and let us analyze your sentiment!</p>
     <form action="/predict" method="POST">
         <textarea name="message" placeholder="Enter your review here..." required></textarea>
         <br>
-        <button type="submit">Predict Sentiment</button>
+        <button type="submit">Analyze Sentiment</button>
     </form>
-</div>
-
-<div class="footer">
-    <p>&copy; 2025 Airline Sentiment Analysis. All Rights Reserved.</p>
 </div>
 
 </body>
